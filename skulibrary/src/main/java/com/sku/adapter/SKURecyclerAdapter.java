@@ -21,6 +21,7 @@ public abstract class SKURecyclerAdapter extends BaseSectionQuickAdapter<SKUSele
     private int mTitleSize;//选择项的类型总数
     private List<String> mTitleTableList;//每个项的table标题---次要
     private List<SKUdata> mSKUdataList;//服务器发回的可选线路---主要
+    private List<List<String>> mSelectValueList;//每个项中的选项---可空
     private List<SKUSelectEntity> mAdapterData;//用于UI展示的adapter
 
     public SKURecyclerAdapter(int layoutResId, int sectionHeadResId) {
@@ -46,13 +47,13 @@ public abstract class SKURecyclerAdapter extends BaseSectionQuickAdapter<SKUSele
         //取值保存，这样不会造成多次取值
         mTitleTableList = skuData.getSKUtitles() != null ? skuData.getSKUtitles() : new ArrayList<String>();
         mSKUdataList = skuData.getSKUdatas() != null ? skuData.getSKUdatas() : new ArrayList<SKUdata>();
-        List<List<String>> selectValueList = skuData.getSelctValues() != null ? skuData.getSelctValues() : new ArrayList<List<String>>();
+        mSelectValueList = skuData.getSelctValues() != null ? skuData.getSelctValues() : new ArrayList<List<String>>();
 
         if (mSKUdataList.size() > 0 && mSKUdataList.get(0).getSKUdatas().size() > 0) {
             //如果有服务器数据，从数据中获取选项数
             mTitleSize = mSKUdataList.get(0).getSKUdatas().size();
-        } else if (selectValueList.size() > 0) {
-            mTitleSize = selectValueList.size();
+        } else if (mSelectValueList.size() > 0) {
+            mTitleSize = mSelectValueList.size();
         } else if (mTitleTableList.size() > 0) {
             mTitleSize = mTitleTableList.size();
         }
@@ -62,12 +63,12 @@ public abstract class SKURecyclerAdapter extends BaseSectionQuickAdapter<SKUSele
         //初始化-用于adapter使用的entitys
         mAdapterData = new ArrayList<>();
 
-        if (selectValueList.size() > 0) {
+        if (mSelectValueList.size() > 0) {
             /** 优先从用户提供的参数列表中取值 (能够出现一直不可选的空值数据)*/
-            for (int i = 0; i < selectValueList.size(); i++) {
+            for (int i = 0; i < mSelectValueList.size(); i++) {
                 //添加header
                 mAdapterData.add(new SKUSelectEntity(true, mTitleTableList.size() > i ? mTitleTableList.get(i) : ""));
-                List<String> valist = selectValueList.get(i);
+                List<String> valist = mSelectValueList.get(i);
                 for (int j = 0; j < valist.size(); j++) {
                     //添加item
                     mAdapterData.add(new SKUSelectEntity(i, valist.get(j)));
@@ -228,8 +229,9 @@ public abstract class SKURecyclerAdapter extends BaseSectionQuickAdapter<SKUSele
     public interface SKUListener {
         /**
          * 选择监听
+         *
          * @param isSelectAll 是否选择完
-         * @param udata 选择数据，需isSelectAll为true才不为空
+         * @param udata       选择数据，需isSelectAll为true才不为空
          */
         void onSelect(boolean isSelectAll, SKUdata udata);
     }
