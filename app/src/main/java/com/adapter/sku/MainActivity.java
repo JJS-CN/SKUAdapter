@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
                 //根据item.status来展示不同UI样式，无需做点击判断。
                 //todo 不能设置itemView的点击事件，因为会覆盖掉点击处理逻辑，实在需要请把相关代码复制出来
                 helper.setText(R.id.tv_name, item.t)
-                        .setBackgroundColor(R.id.tv_name, item.status == 2 ? Color.RED : item.status == 1 ? Color.BLACK : Color.GRAY);
+                        .setBackgroundColor(R.id.tv_name, item.status == 2 ? Color.RED : item.status == 1 ? Color.GRAY:Color.BLACK );
             }
         };
         adapter.setSKUListener(new SKURecyclerAdapter.SKUListener() {

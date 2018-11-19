@@ -190,7 +190,7 @@ public abstract class SKURecyclerAdapter extends BaseSectionQuickAdapter<SKUSele
             //新建一个与选中数组size相同的可能选中数组--存放可能选中集合
             String[] mSnapSelectArr = new String[mSelectArr.length];
             //todo 生成各种用户可能选中情况---实际操作为依次替换选中数组的其中一个值
-            for (int k = 0; k < mTitleTableList.size(); k++) {
+            for (int k = 0; k < mSelectArr.length; k++) {
                 //如果当前按钮的type值与当前正在遍历的项一致
                 if (entity.mType == k) {
                     //即我正在遍历这个项下的所有按钮可能性，这时候需要取按钮的值来生成可能值
@@ -201,6 +201,7 @@ public abstract class SKURecyclerAdapter extends BaseSectionQuickAdapter<SKUSele
                 }
             }
             Log.i("得到下一次用户的可能选中：", Arrays.toString(mSnapSelectArr));
+
             entity.status = 1;//初始化为不可选
             for (int i1 = 0; i1 < mSKUdataList.size(); i1++) {
                 //服务器可选择内容
