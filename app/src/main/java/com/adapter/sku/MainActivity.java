@@ -33,21 +33,24 @@ public class MainActivity extends AppCompatActivity {
                 //根据item.status来展示不同UI样式，无需做点击判断。
                 //todo 不能设置itemView的点击事件，因为会覆盖掉点击处理逻辑，实在需要请把相关代码复制出来
                 helper.setText(R.id.tv_name, item.t)
-                        .setBackgroundColor(R.id.tv_name, item.status == 2 ? Color.RED : item.status == 1 ? Color.GRAY:Color.BLACK );
+                        .setBackgroundColor(R.id.tv_name, item.status == 2 ? Color.RED : item.status == 1 ? Color.GRAY : Color.BLACK);
             }
         };
         adapter.setSKUListener(new SKURecyclerAdapter.SKUListener() {
             @Override
             public void onSelect(boolean isSelectAll, SKUdata udata) {
                 //选择监听，
-                if (isSelectAll) {
+                String data = null;
+                if (udata != null) {
                     TestDemo.DataEntity.SpecListEntity mSpecEntity = (TestDemo.DataEntity.SpecListEntity) udata;
-                    Log.e("eeee", mSpecEntity.spec1 + " + " + mSpecEntity.spec2 + " + " + mSpecEntity.spec3);
+                    data = mSpecEntity.spec1 + " + " + mSpecEntity.spec2 + " + " + mSpecEntity.spec3;
+
                 }
+                Log.e("eeee", isSelectAll + "  " + data);
             }
         });
         mRv.setAdapter(adapter);
-        TestDemo demo=new TestDemo();
+        TestDemo demo = new TestDemo();
         adapter.setSKUdata(demo.data);
     }
 }
