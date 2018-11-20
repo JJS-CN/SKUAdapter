@@ -178,7 +178,7 @@ public abstract class SKURecyclerAdapter extends BaseSectionQuickAdapter<SKUSele
                         mSnapList.add(mSelectArr[k]);
                 }
             }
-        //    Log.i("得到下一次用户的可能选中：", mSnapList.toString());
+            //    Log.i("得到下一次用户的可能选中：", mSnapList.toString());
             entity.status = 1;//初始化为不可选
             SKUResult mResult = mSKUResults.get(mSnapList.size()).get(mSnapList.toString());
             if (mResult != null) {
@@ -196,12 +196,16 @@ public abstract class SKURecyclerAdapter extends BaseSectionQuickAdapter<SKUSele
     }
 
     private SKUdata lastResult;
+    private boolean lastSelectAll;
 
     //设置返回值
     private void setListenerReturn(boolean isSelectAll, SKUdata mData) {
-        if (mSKUListener != null && lastResult != mData) {
-            lastResult = mData;
-            mSKUListener.onSelect(isSelectAll, mData);
+        if (mSKUListener != null) {
+            if (lastResult != mData || lastSelectAll != isSelectAll) {
+                lastResult = mData;
+                lastSelectAll = isSelectAll;
+                mSKUListener.onSelect(isSelectAll, mData);
+            }
         }
     }
 
@@ -223,7 +227,7 @@ public abstract class SKURecyclerAdapter extends BaseSectionQuickAdapter<SKUSele
                     List<String> combineSubset = new ArrayList<>(powerSet.get(j));
                     combineSubset.add(element);
                     powerSet.add(combineSubset);
-                 //   Log.e("create", combineSubset.toString());
+                    //   Log.e("create", combineSubset.toString());
 
                     if (mSKUResults.size() <= powerSet.size()) {
                         mSKUResults.add(new HashMap<String, SKUResult>());
