@@ -248,7 +248,7 @@ public abstract class SKURecyclerAdapter extends BaseSectionQuickAdapter<SKUSele
          * 选择监听
          *
          * @param isSelectAll 是否选择完
-         * @param udata       选择数据，需isSelectAll为true才不为空
+         * @param udata       选择数据，isSelectAll为false时，只要用户对第0项数据进行了操作，都回回调此方法
          */
         void onSelect(boolean isSelectAll, SKUdata udata);
     }
