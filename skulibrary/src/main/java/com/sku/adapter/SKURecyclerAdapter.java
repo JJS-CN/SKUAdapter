@@ -39,6 +39,17 @@ public abstract class SKURecyclerAdapter extends BaseSectionQuickAdapter<SKUSele
     }
 
     /**
+     * 设置默认选中商品
+     * @param skuData
+     */
+    public void setChooseSkuData(SKUdata skuData) {
+        mSelectArr = (String[]) skuData.getSKUdatas().toArray();
+        if (mSKUdataList != null) {
+            reCommSpec();
+        }
+    }
+
+    /**
      * 设置SKU参数
      * 优先从getSelctValues中取值，其次将从getSKUdatas中遍历所有可能选项
      *
@@ -60,7 +71,9 @@ public abstract class SKURecyclerAdapter extends BaseSectionQuickAdapter<SKUSele
         }
 
         //初始化选择数组
-        mSelectArr = new String[mTitleSize];
+        if (mSelectArr == null) {
+            mSelectArr = new String[mTitleSize];
+        }
         //初始化-用于adapter使用的entitys
         mAdapterData = new ArrayList<>();
 
