@@ -17,4 +17,4 @@ sku商品属性多选情况，封装成adapter；供recyclerview使用，基于b
 	            implementation 'com.github.JJS-CN:SKUAdapter:latest.integration'
     	}
 ##### v1.2.1
-      修复只有一个属性，多个选项但只出现一个的问题；由于逻辑处理时取值错误
+      修复只有一个属性，多个选项但只出现一个选项的问题；由于逻辑处理时取值错误
