@@ -91,7 +91,7 @@ public abstract class SKURecyclerAdapter extends BaseSectionQuickAdapter<SKUSele
         } else {
             /**从商品分类表中遍历参数 （只会出现后台提供了商品内容的参数）（初始化复杂度提高）*/
             List<List<SKUSelectEntity>> datas = new ArrayList<>();
-            for (int i = 0; i < mTitleTableList.size(); i++) {
+            for (int i = 0; i < mSKUdataList.size(); i++) {
                 //由于商品列表数据接口为123123，而按钮需要的为112233进行添加
                 List<SKUSelectEntity> step = new ArrayList<>();
                 for (int j = 0; j < mSKUdataList.get(i).getSKUdatas().size(); j++) {
